@@ -57,8 +57,12 @@ export class SequenceWalletConnector extends Connector {
     config?: { chainId?: number | undefined } | undefined,
     force = false,
   ): Promise<Wallet> {
+    const chain = this.chains.find(chain => chain.id === config?.chainId);
+
     if (!this.wallet || force) {
-      this.wallet = await sequence.initWallet(config?.chainId);
+      this.wallet = await sequence.initWallet(config?.chainId, {
+        networkRpcUrl: chain?.rpcUrls.default
+      });
       (this.wallet as any).removeListener = () => undefined;
     }
     return this.wallet;
@@ -68,7 +72,7 @@ export class SequenceWalletConnector extends Connector {
     config: { chainId?: number | undefined } | undefined = {},
   ): Promise<any> {
     const provider = await this.getProvider(config);
-    const signer = provider.getSigner();
+    const signer = provider.getSigner(config.chainId);
     signer.connectUnchecked = () => signer;
     return signer;
   }
