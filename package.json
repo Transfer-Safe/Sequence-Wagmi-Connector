@@ -1,6 +1,6 @@
 {
   "name": "sequence-connector-wagmi",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -14,5 +14,6 @@
   "dependencies": {
     "0xsequence": "^0.40.5",
     "wagmi": "^0.6.4"
-  }
+  },
+  "keywords": ["wagmi", "sequence"]
 }
