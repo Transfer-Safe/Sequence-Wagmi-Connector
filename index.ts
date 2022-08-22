@@ -1,5 +1,6 @@
 import { Connector, ConnectorData } from 'wagmi';
 import { sequence, Wallet } from '0xsequence';
+import { providers } from 'ethers';
 
 function normalizeChainId(chainId?: string | number | bigint) {
   if (typeof chainId === 'string')
@@ -11,7 +12,7 @@ function normalizeChainId(chainId?: string | number | bigint) {
   return chainId || 1;
 }
 
-export class SequenceWalletConnector extends Connector {
+export class SequenceWalletConnector extends Connector<sequence.WalletProvider, any, providers.JsonRpcSigner> {
   id = 'sequenceWallet';
   name = 'Sequence';
   ready = true;
